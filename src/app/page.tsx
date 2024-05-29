@@ -1,5 +1,9 @@
-import Image from "next/image";
+import NavBar from "./components/NavBar";
 
 export default function Home() {
-  return <main>Hi There</main>;
+  return (
+    <main className="bg-slate-100">
+      <NavBar />
+    </main>
+  );
 }
