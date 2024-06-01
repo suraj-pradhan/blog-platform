@@ -1,9 +1,12 @@
-import NavBar from "./components/NavBar";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import Articles from "./components/Articles";
 
 export default function Home() {
   return (
-    <main className="bg-slate-100">
-      <NavBar />
+    <main>
+      <Header />
+      <Articles />
     </main>
   );
 }
