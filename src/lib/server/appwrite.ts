@@ -1,6 +1,6 @@
 import { Client, Account } from "node-appwrite";
 import { cookies } from "next/headers";
-import config from "../config/config";
+import config from "../../config/config";
 
 export async function createSessionClient() {
   const client = new Client()
