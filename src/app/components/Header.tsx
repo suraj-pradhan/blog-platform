@@ -1,14 +1,10 @@
-import React, { useState } from "react";
 import Image from "next/image";
 import logoImage from "../../../public/assets/logo/logo.png";
 import Link from "next/link";
 import { getLoggedInUser } from "@/lib/server/appwrite";
 
-async function NavBar() {
+export default async function NavBar() {
   const user = await getLoggedInUser();
-  console.log(user);
-  let buttonValue = "Start Publishing";
-  if (user) buttonValue = user.name;
   return (
     <>
       <nav className="flex py-4 items-center text-sm justify-around bg-slate-100">
@@ -22,21 +18,18 @@ async function NavBar() {
             ></Image>
           </Link>
         </span>
-        {/* <span className="flex gap-x-6">
-          <Link href="/">Articles</Link>
-          <Link href="/">Newsletter</Link>
-          <Link href="/">Publish</Link>
-        </span> */}
-        <span className="flex gap-x-6 items-center"></span>
+        <span>
+          <Link href="/create">Create</Link>
+        </span>
         <span className="flex gap-x-6 items-center">
-          <Link href="/login">
-            <button className="font-medium rounded-md px-4 py-2 border-2 border-slate-300 hover:bg-slate-900 hover:text-white ">
-              Login
+          <Link href="/authentication/signup">
+            <button className="font-medium rounded-md px-4 py-2 border-2 border-slate-300 hover:bg-slate-800 hover:text-white ">
+              {!user ? "Signup" : user.name}
             </button>
           </Link>
-          <Link href="/authentication">
-            <button className="font-medium rounded-md px-4 py-2 border-2 border-slate-300 hover:bg-slate-900 hover:text-white ">
-              {buttonValue}
+          <Link href="/authentication/login">
+            <button className="font-medium rounded-md px-4 py-2 border-2 border-slate-300 hover:bg-slate-800 hover:text-white ">
+              {!user ? "Login" : "Logout"}
             </button>
           </Link>
         </span>
@@ -45,5 +38,3 @@ async function NavBar() {
     </>
   );
 }
-
-export default NavBar;
