@@ -10,12 +10,12 @@ async function signOut() {
   cookies().delete("my-custom-session");
   await account.deleteSession("current");
 
-  redirect("/signup");
+  redirect("/authentication/signup");
 }
 
 export default async function HomePage() {
   const user = await getLoggedInUser();
-  if (!user) redirect("/signup");
+  if (!user) redirect("/authentication/signup");
 
   return (
     <>

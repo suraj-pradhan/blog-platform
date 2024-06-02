@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { ID } from "node-appwrite";
 import Link from "next/link";
+import Image from "next/image";
+import logoImage from "../../../../public/assets/logo/logo.png";
 
 export default async function SignUpPage() {
   const user = await getLoggedInUser();
@@ -15,6 +17,17 @@ export default async function SignUpPage() {
         max-w-96 border-2 border-slate-400 p-6 rounded"
         action={signUpWithEmail}
       >
+        <span>
+          <Link href="/">
+            <Image
+              src={logoImage}
+              alt="image of logo"
+              width={160}
+              height={20}
+            ></Image>
+          </Link>
+        </span>
+        <span className="font-medium text-lg mt-4">Sign up for an account</span>
         <input
           className="border-2 border-slate-400 px-3 py-1 rounded-md"
           required
@@ -41,14 +54,15 @@ export default async function SignUpPage() {
           type="text"
         />
         <button
-          className="text-white text-md bg-slate-700 px-6 py-2 rounded-md"
+          className="text-white w-60 bg-slate-700 px-3 py-1 rounded-md"
           type="submit"
         >
           Sign up
         </button>
-        <Link href="/login">
-          <button className="text-sm hover:underline hover:underline-offset-4">
-            Already have account ?
+        <Link href="/authentication/login">
+          <span className="text-[13px]">Already have an account ? </span>
+          <button className="text-[13px] text-blue-900 font-semibold hover:underline hover:underline-offset-2">
+            Login
           </button>
         </Link>
       </form>
