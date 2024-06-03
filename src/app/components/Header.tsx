@@ -18,10 +18,9 @@ export default async function NavBar() {
             ></Image>
           </Link>
         </span>
-        <span>
-          <Link href="/create">Create</Link>
-        </span>
+
         <span className="flex gap-x-6 items-center">
+          {user ? <Link href="/create">Publish</Link> : null}
           <Link href="/authentication/signup">
             <button className="font-medium rounded-md px-4 py-2 border-2 border-slate-300 hover:bg-slate-800 hover:text-white ">
               {!user ? "Signup" : user.name}
