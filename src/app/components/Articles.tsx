@@ -1,6 +1,10 @@
+"use client";
+import { Client, Databases } from "node-appwrite";
 import { StaticImageData } from "next/image";
 import Image from "next/image";
+import config from "../../config/config";
 import macbook from "../../../public/assets/images/macbook.jpg";
+import { useEffect, useState } from "react";
 
 interface Props {
   img: StaticImageData;
@@ -32,32 +36,41 @@ const Article = ({ img, author, title, date, description }: Props) => {
   );
 };
 
-const article = () => {
+const BlogPosts = () => {
+  const [title, setTitle] = useState("Hi");
+
+  const client = new Client()
+    .setEndpoint(config.appwriteEndpoint)
+    .setProject(config.appwriteProjectId);
+
+  const databases = new Databases(client);
+
+  useEffect(() => {
+    const getDatas = async () => {
+      const result = await databases.getDocument(
+        config.appwriteDatabaseId,
+        config.appwriteCollectionId,
+        "665cdd590021cdd133bb", // documentId
+        [] // queries (optional)
+      );
+      setTitle(result.title);
+
+      console.log(title);
+    };
+    getDatas();
+  });
+
   return (
     <div className="flex items-center justify-center gap-4 my-10 mx-4 ">
       <Article
         img={macbook}
         date="31 May, 2024"
         author="Suraj Pradhan"
-        title="All new Macbook Pro"
-        description="New Macbook Pro with M3 chips has arrived with improved performance, all new unibody metal design and efficient cooling."
-      />
-      <Article
-        img={macbook}
-        date="31 May, 2024"
-        author="Suraj Pradhan"
-        title="All new Macbook Pro"
-        description="New Macbook Pro with M3 chips has arrived with improved performance, all new unibody metal design and efficient cooling."
-      />
-      <Article
-        img={macbook}
-        date="31 May, 2024"
-        author="Suraj Pradhan"
-        title="All new Macbook Pro"
+        title={title}
         description="New Macbook Pro with M3 chips has arrived with improved performance, all new unibody metal design and efficient cooling."
       />
     </div>
   );
 };
 
-export default article;
+export default BlogPosts;
